@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FUSMO | Ship Repair & Marine Project Management</title>
+  <meta name="description" content="FUSMO는 선박 수리, 보트 리핏, 소형선박 제작, 해양 프로젝트 관리를 수행하는 마린 솔루션 브랜드입니다." />
+  <style>
+    :root {
+      --navy: #0b1f3a;
+      --deep-navy: #071529;
+      --steel: #5f6f7f;
+      --light: #f4f7fa;
+      --white: #ffffff;
+      --line: #d9e1e8;
+      --accent: #1f6feb;
+      --gold: #c8a45d;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, "Noto Sans KR", sans-serif;
+      color: var(--deep-navy);
+      background: var(--white);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(1120px, 92%);
+      margin: 0 auto;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav {
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-weight: 900;
+      letter-spacing: 0.16em;
+      font-size: 24px;
+      color: var(--navy);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--steel);
+    }
+
+    .nav-links a:hover {
+      color: var(--navy);
+    }
+
+    .hero {
+      min-height: 100vh;
+      padding: 150px 0 90px;
+      background:
+        linear-gradient(120deg, rgba(7, 21, 41, 0.94), rgba(11, 31, 58, 0.72)),
+        url("images/hero-shipyard.jpg") center/cover no-repeat;
+      color: var(--white);
+      display: flex;
+      align-items: center;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 56px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      color: var(--gold);
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      font-size: 13px;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: clamp(42px, 6vw, 72px);
+      line-height: 1.08;
+      letter-spacing: -0.04em;
+      margin-bottom: 26px;
+    }
+
+    .hero p {
+      max-width: 700px;
+      font-size: 19px;
+      color: #dbe5ef;
+      margin-bottom: 34px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 22px;
+      border-radius: 999px;
+      font-weight: 800;
+      transition: 0.2s ease;
+    }
+
+    .btn-primary {
+      background: var(--white);
+      color: var(--navy);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      background: #eef3f8;
+    }
+
+    .btn-outline {
+      border: 1px solid rgba(255,255,255,0.45);
+      color: var(--white);
+    }
+
+    .btn-outline:hover {
+      background: rgba(255,255,255,0.1);
+    }
+
+    .hero-card {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.22);
+      border-radius: 28px;
+      padding: 30px;
+      box-shadow: 0 28px 80px rgba(0,0,0,0.26);
+    }
+
+    .hero-card h3 {
+      font-size: 22px;
+      margin-bottom: 16px;
+    }
+
+    .hero-card ul {
+      list-style: none;
+      display: grid;
+      gap: 14px;
+      color: #e8eef5;
+      font-size: 15px;
+    }
+
+    .hero-card li::before {
+      content: "✓";
+      color: var(--gold);
+      font-weight: 900;
+      margin-right: 10px;
+    }
+
+    section {
+      padding: 92px 0;
+    }
+
+    .section-head {
+      max-width: 760px;
+      margin-bottom: 42px;
+    }
+
+    .section-head span {
+      display: block;
+      color: var(--accent);
+      font-weight: 900;
+      font-size: 13px;
+      letter-spacing: 0.16em;
+      margin-bottom: 12px;
+    }
+
+    h2 {
+      font-size: clamp(30px, 4vw, 46px);
+      line-height: 1.2;
+      letter-spacing: -0.03em;
+      margin-bottom: 18px;
+    }
+
+    .section-head p {
+      color: var(--steel);
+      font-size: 17px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .card {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: 0 14px 40px rgba(7, 21, 41, 0.06);
+    }
+
+    .card strong {
+      display: block;
+      font-size: 21px;
+      margin-bottom: 12px;
+      color: var(--navy);
+    }
+
+    .card p {
+      color: var(--steel);
+      font-size: 15px;
+    }
+
+    .about {
+      background: var(--light);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .image-box {
+      min-height: 440px;
+      border-radius: 30px;
+      background:
+        linear-gradient(rgba(11,31,58,0.1), rgba(11,31,58,0.1)),
+        url("images/work-boat.jpg") center/cover no-repeat;
+      box-shadow: 0 24px 70px rgba(7, 21, 41, 0.14);
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 28px;
+    }
+
+    .stat {
+      background: var(--white);
+      border-radius: 18px;
+      padding: 20px;
+      border: 1px solid var(--line);
+    }
+
+    .stat b {
+      display: block;
+      font-size: 28px;
+      color: var(--navy);
+    }
+
+    .stat span {
+      color: var(--steel);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .process {
+      background: var(--deep-navy);
+      color: var(--white);
+    }
+
+    .process .section-head p {
+      color: #c9d5e1;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .step {
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 22px;
+      padding: 24px;
+      background: rgba(255,255,255,0.05);
+    }
+
+    .step em {
+      font-style: normal;
+      color: var(--gold);
+      font-weight: 900;
+      font-size: 14px;
+    }
+
+    .step h3 {
+      margin: 12px 0 10px;
+      font-size: 19px;
+    }
+
+    .step p {
+      color: #c9d5e1;
+      font-size: 14px;
+    }
+
+    .contact {
+      background: linear-gradient(135deg, var(--navy), var(--deep-navy));
+      color: var(--white);
+      text-align: center;
+    }
+
+    .contact p {
+      max-width: 700px;
+      margin: 0 auto 30px;
+      color: #dbe5ef;
+      font-size: 17px;
+    }
+
+    footer {
+      background: #050d19;
+      color: #9eacba;
+      padding: 28px 0;
+      font-size: 14px;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid,
+      .about-grid,
+      .cards,
+      .steps {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 120px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <a href="#" class="logo">FUSMO</a>
+      <nav class="nav-links">
+        <a href="#services">Services</a>
+        <a href="#about">About</a>
+        <a href="#process">Process</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">FUSION MOBILITY · MARINE SOLUTIONS</div>
+          <h1>Total Control,<br />Zero Stress.</h1>
+          <p>
+            FUSMO는 선박 수리, 보트 리핏, 소형선박 제작, 현장 품질관리와 프로젝트 관리를 하나로 연결하는 마린 프로젝트 파트너입니다.
+          </p>
+          <div class="buttons">
+            <a href="#contact" class="btn btn-primary">프로젝트 문의하기</a>
+            <a href="#services" class="btn btn-outline">서비스 보기</a>
+          </div>
+        </div>
+
+        <aside class="hero-card">
+          <h3>What We Control</h3>
+          <ul>
+            <li>Repair & Refit Project Management</li>
+            <li>Boat Building & Small Vessel Fabrication</li>
+            <li>On-site QA/QC and Contractor Supervision</li>
+            <li>Technical Documentation & Compliance Support</li>
+            <li>Korea · Philippines Marine Network</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section id="services">
+      <div class="container">
+        <div class="section-head">
+          <span>SERVICES</span>
+          <h2>선박 프로젝트의 복잡한 과정을 현장에서 통제합니다.</h2>
+          <p>
+            FUSMO는 단순 중개가 아니라 공정, 품질, 비용, 일정, 협력업체를 함께 관리하는 실행형 마린 솔루션을 제공합니다.
+          </p>
+        </div>
+
+        <div class="cards">
+          <div class="card">
+            <strong>Ship Repair</strong>
+            <p>선체, 기관, 배관, 전장, 도장 등 선박 수리 프로젝트의 범위 설정부터 현장 실행까지 지원합니다.</p>
+          </div>
+          <div class="card">
+            <strong>Boat Refit</strong>
+            <p>관광선, 요트, 소형선박의 리핏·개조·인테리어 개선을 목적과 예산에 맞춰 관리합니다.</p>
+          </div>
+          <div class="card">
+            <strong>Project Control</strong>
+            <p>작업자, 협력사, 자재, 일정, 품질검사, 서류관리를 통합해 선주의 리스크를 줄입니다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="about">
+      <div class="container about-grid">
+        <div class="image-box" aria-label="Marine project image"></div>
+        <div>
+          <div class="section-head">
+            <span>ABOUT FUSMO</span>
+            <h2>현장을 이해하는 사람이 프로젝트를 관리해야 합니다.</h2>
+            <p>
+              선박 프로젝트는 도면과 견적만으로 끝나지 않습니다. 현장 상황, 작업 품질, 기술자 숙련도, 자재 조달, 규정 대응이 동시에 맞아야 합니다. FUSMO는 이 복잡한 과정을 선주와 발주자 입장에서 관리합니다.
+            </p>
+          </div>
+          <div class="stats">
+            <div class="stat">
+              <b>QA/QC</b>
+              <span>품질관리 중심</span>
+            </div>
+            <div class="stat">
+              <b>MRO</b>
+              <span>수리·정비·개조</span>
+            </div>
+            <div class="stat">
+              <b>GLOBAL</b>
+              <span>해외 현장 대응</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="process" class="process">
+      <div class="container">
+        <div class="section-head">
+          <span>PROCESS</span>
+          <h2>진단부터 인도까지, 단계별로 관리합니다.</h2>
+          <p>프로젝트 목적을 먼저 정의하고, 현장 실행 가능성을 검토한 뒤 일정·품질·비용을 통제합니다.</p>
+        </div>
+
+        <div class="steps">
+          <div class="step">
+            <em>01</em>
+            <h3>Project Review</h3>
+            <p>선박 상태, 목적, 예산, 일정, 기술 범위를 검토합니다.</p>
+          </div>
+          <div class="step">
+            <em>02</em>
+            <h3>Planning</h3>
+            <p>공정, 자재, 협력업체, 품질 기준을 사전에 정리합니다.</p>
+          </div>
+          <div class="step">
+            <em>03</em>
+            <h3>Execution</h3>
+            <p>현장 작업과 협력업체를 관리하고 문제를 즉시 조정합니다.</p>
+          </div>
+          <div class="step">
+            <em>04</em>
+            <h3>Delivery</h3>
+            <p>검사, 서류, 인도 조건을 확인하고 프로젝트를 마무리합니다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="contact">
+      <div class="container">
+        <div class="eyebrow">START YOUR PROJECT</div>
+        <h2>선박 수리·개조·제작 프로젝트가 있다면 FUSMO와 먼저 검토하세요.</h2>
+        <p>
+          프로젝트 개요, 선박 종류, 위치, 희망 일정만 알려주시면 초기 검토 방향을 잡아드립니다.
+        </p>
+        <div class="buttons" style="justify-content:center;">
+          <a href="mailto:fusmoyard@gmail.com" class="btn btn-primary">fusmoyard@gmail.com</a>
+          <a href="tel:+821091236157" class="btn btn-outline">010-9123-6157</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <span>© 2026 FUSMO / FUSION MOBILITY. All rights reserved.</span>
+      <span>Ship Repair · Boat Refit · Marine Project Management</span>
+    </div>
+  </footer>
+</body>
+</html>
